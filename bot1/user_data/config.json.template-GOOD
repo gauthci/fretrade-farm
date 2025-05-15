@@ -1,0 +1,106 @@
+{
+  "dry_run": false,
+  "timeframe": "5m",
+  "stake_currency": "USDC",
+  "stake_amount": 15,
+  "strategy": "AggressiveRSIStrategy",
+  "exchange": {
+    "name": "binance",
+    "type": "spot",
+    "key": "${BINANCE_API_KEY}",
+    "secret": "${BINANCE_API_SECRET}",
+    "pair_whitelist": [
+      "1000CAT/USDC", "1000CHEEMS/USDC", "1000SATS/USDC", "1MBABYDOGE/USDC", "AAVE/USDC",
+      "ACH/USDC", "ACT/USDC", "ACX/USDC", "ADA/USDC", "AIXBT/USDC", "ALGO/USDC",
+      "ALT/USDC", "ANIME/USDC", "APE/USDC", "APT/USDC", "AR/USDC", "ARB/USDC",
+      "ARKM/USDC", "ATOM/USDC", "AUCTION/USDC", "AVAX/USDC", "BABY/USDC", "BANANA/USDC",
+      "BB/USDC", "BCH/USDC", "BEAMX/USDC", "BERA/USDC", "BIGTIME/USDC", "BIO/USDC",
+      "BLUR/USDC", "BMT/USDC", "BNB/USDC", "BOME/USDC", "BONK/USDC", "BTC/USDC",
+      "CAKE/USDC", "CATI/USDC", "CETUS/USDC", "CFX/USDC", "CGPT/USDC", "CHESS/USDC",
+      "CHZ/USDC", "CKB/USDC", "COOKIE/USDC", "COW/USDC", "CRV/USDC", "CVC/USDC",
+      "DF/USDC", "DOGE/USDC", "DOGS/USDC", "DOT/USDC", "DYDX/USDC", "EGLD/USDC",
+      "EIGEN/USDC", "ENA/USDC", "ENS/USDC", "EOS/USDC", "EPIC/USDC", "ETH/USDC",
+      "ETHFI/USDC", "EUR/USDC", "EURI/USDC", "FDUSD/USDC", "FET/USDC", "FIL/USDC",
+      "FLOKI/USDC", "FORM/USDC", "GALA/USDC", "GMT/USDC", "GMX/USDC", "GPS/USDC",
+      "GUN/USDC", "HBAR/USDC", "HEI/USDC", "HIVE/USDC", "HMSTR/USDC", "HYPER/USDC",
+      "ICP/USDC", "IDEX/USDC", "INIT/USDC", "INJ/USDC", "IO/USDC", "IOTA/USDC",
+      "JTO/USDC", "JUP/USDC", "JUV/USDC", "KAIA/USDC", "KAITO/USDC", "KERNEL/USDC",
+      "LAYER/USDC", "LDO/USDC", "LINK/USDC", "LTC/USDC", "MANTA/USDC", "MEME/USDC",
+      "MKR/USDC", "MOVE/USDC", "MUBARAK/USDC", "NEAR/USDC", "NEIRO/USDC", "NEO/USDC",
+      "NIL/USDC", "NOT/USDC", "OM/USDC", "OMNI/USDC", "ONDO/USDC", "ONT/USDC",
+      "OP/USDC", "ORCA/USDC", "ORDI/USDC", "OSMO/USDC", "PARTI/USDC", "PAXG/USDC",
+      "PENDLE/USDC", "PENGU/USDC", "PEOPLE/USDC", "PEPE/USDC", "PHA/USDC", "PIXEL/USDC",
+      "PNUT/USDC", "POL/USDC", "PYTH/USDC", "QNT/USDC", "RARE/USDC", "RAY/USDC",
+      "RED/USDC", "RENDER/USDC", "REZ/USDC", "RPL/USDC", "RSR/USDC", "RUNE/USDC",
+      "S/USDC", "SAGA/USDC", "SAND/USDC", "SEI/USDC", "SHELL/USDC", "SHIB/USDC",
+      "SIGN/USDC", "SLF/USDC", "SOL/USDC", "STEEM/USDC", "STO/USDC", "STRK/USDC",
+      "STX/USDC", "SUI/USDC", "SYN/USDC", "T/USDC", "TAO/USDC", "THE/USDC",
+      "THETA/USDC", "TIA/USDC", "TLM/USDC", "TNSR/USDC", "TON/USDC", "TRB/USDC",
+      "TRUMP/USDC", "TRX/USDC", "TST/USDC", "TURBO/USDC", "TUT/USDC", "UNI/USDC",
+      "USUAL/USDC", "UTK/USDC", "VANA/USDC", "VANRY/USDC", "VELODROME/USDC",
+      "VET/USDC", "VIRTUAL/USDC", "W/USDC", "WCT/USDC", "WIF/USDC", "WLD/USDC",
+      "XLM/USDC", "XRP/USDC", "XTZ/USDC", "YGG/USDC", "ZEN/USDC", "ZK/USDC", "ZRO/USDC"
+    ],
+    "pair_blacklist": []
+  },
+  "export": "trades",
+  "force_entry_enable": true,
+  "max_open_trades": 4,
+  "loglevel": "INFO",
+  "dataformat_ohlcv": "feather",
+  "dataformat_trades": "feather",
+  "new_pairs_days": 30,
+  "initial_state": "running",
+  "exporters": [
+    {
+      "name": "influx",
+      "type": "influxdb",
+      "url": "http://influxdb:8086",
+      "database": "${INFLUXDB_DB}",
+      "username": "${INFLUXDB_USER}",
+      "password": "${INFLUXDB_PASSWORD}"
+    }
+  ],
+  "pairlists": [
+    {
+      "method": "StaticPairList"
+    }
+  ],
+  "entry_pricing": {
+    "price_side": "ask",
+    "use_order_book": true,
+    "order_book_depth": 1
+  },
+  "exit_pricing": {
+    "price_side": "bid",
+    "use_order_book": true,
+    "order_book_depth": 1
+  },
+  "order_types": {
+    "entry": "limit",
+    "exit": "limit",
+    "stoploss": "market",
+    "force_exit": "market",
+    "stoploss_on_exchange": false
+  },
+  "order_time_in_force": {
+    "entry": "gtc",
+    "exit": "gtc"
+  },
+  "stoploss": -0.339,
+  "minimal_roi": {
+    "0": 0.228,
+    "27": 0.076,
+    "56": 0.031,
+    "166": 0
+  },
+  "use_exit_signal": true,
+  "exit_profit_only": false,
+  "ignore_roi_if_entry_signal": false,
+  "unfilledtimeout": {
+    "entry": 10,
+    "exit": 30,
+    "unit": "seconds"
+  }
+}
+

@@ -1,0 +1,22 @@
+from freqtrade.strategy.interface import IStrategy
+from pandas import DataFrame
+import talib.abstract as ta
+
+class SimpleRSIStrategy(IStrategy):
+    timeframe = '5m'
+    minimal_roi = {"0": 0.01}
+    stoploss = -0.1
+    startup_candle_count: int = 14
+
+    def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe['rsi'] = ta.RSI(dataframe, timeperiod=14)
+        return dataframe
+
+    def populate_buy_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe['buy'] = 1  # Forcer achat toujours
+        return dataframe
+
+    def populate_sell_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe['sell'] = 0  # Ne jamais vendre
+        return dataframe
+

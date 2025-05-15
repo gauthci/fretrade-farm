@@ -1,0 +1,109 @@
+{
+  "dry_run": false,
+  "timeframe": "5m",
+  "stake_currency": "USDC",
+  "stake_amount": "unlimited",
+  "strategy": "AggressiveRSIStrategy",
+  "exchange": {
+    "name": "binance",
+    "type": "spot",
+    "key": "${BINANCE_API_KEY}",
+    "secret": "${BINANCE_API_SECRET}",
+    "ccxt_config": {
+      "enableRateLimit": true
+    },
+    "pair_whitelist": [
+      "ACX/USDC", "SOL/USDC", "BTC/USDC", "ETH/USDC", "BNB/USDC",
+      "ADA/USDC", "XRP/USDC", "DOGE/USDC", "AVAX/USDC", "DOT/USDC",
+      "LTC/USDC", "LINK/USDC", "OP/USDC", "ARB/USDC",
+      "INJ/USDC", "APT/USDC", "SUI/USDC", "RUNE/USDC", "FET/USDC",
+      "NEAR/USDC", "SEI/USDC", "JUP/USDC", "PEPE/USDC"
+    ],
+    "pair_blacklist": []
+  },
+  "export": "trades",
+  "force_entry_enable": true,
+  "max_open_trades": 10,
+  "loglevel": "INFO",
+  "dataformat_ohlcv": "feather",
+  "dataformat_trades": "feather",
+  "initial_state": "running",
+  "new_pairs_days": 30,
+  "entry_pricing": {
+    "price_side": "ask",
+    "use_order_book": false
+  },
+  "exit_pricing": {
+    "price_side": "bid",
+    "use_order_book": false
+  },
+  "order_types": {
+    "entry": "limit",
+    "exit": "limit",
+    "stoploss": "market",
+    "force_exit": "market",
+    "stoploss_on_exchange": false
+  },
+  "order_time_in_force": {
+    "entry": "gtc",
+    "exit": "gtc"
+  },
+  "stoploss": -0.05,
+  "minimal_roi": {
+    "0": 0.02,
+    "30": 0.01,
+    "60": 0
+  },
+  "trailing_stop": true,
+  "trailing_stop_positive": 0.02,
+  "trailing_stop_positive_offset": 0.03,
+  "trailing_only_offset_is_reached": true,
+  "use_exit_signal": true,
+  "exit_profit_only": false,
+  "ignore_roi_if_entry_signal": false,
+  "unfilledtimeout": {
+    "entry": 10,
+    "exit": 30,
+    "unit": "seconds",
+    "exit_timeout_count": 0
+  },
+  "protection": [
+    {
+      "method": "CooldownPeriod",
+      "stop_duration_candles": 10
+    },
+    {
+      "method": "StoplossGuard",
+      "lookback_period_candles": 30,
+      "trade_limit": 1,
+      "stop_duration_candles": 20,
+      "only_per_pair": false
+    }
+  ],
+  "pairlists": [
+    {
+      "method": "StaticPairList"
+    }
+  ],
+  "exporters": [
+    {
+      "name": "influx",
+      "type": "influxdb",
+      "url": "http://influxdb:8086",
+      "database": "${INFLUXDB_DB}",
+      "username": "${INFLUXDB_USER}",
+      "password": "${INFLUXDB_PASSWORD}"
+    }
+  ],
+  "api_server": {
+    "enabled": true,
+    "listen_ip_address": "0.0.0.0",
+    "listen_port": 8080,
+    "verbosity": "info",
+    "jwt_secret_key": "super-secret-jwt-key",
+    "CORS_origins": [],
+    "username": "freqtrade",
+    "password": "freqtrade"
+  }
+}
+

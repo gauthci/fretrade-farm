@@ -1,0 +1,52 @@
+{
+  "dry_run": false,
+  "timeframe": "5m",
+  "stake_currency": "USDC",
+  "stake_amount": 15,
+  "strategy": "AggressiveRSIStrategy",
+  "exchange": {
+    "name": "binance",
+    "type": "spot",
+    "key": "${BINANCE_API_KEY}",
+    "secret": "${BINANCE_API_SECRET}",
+    "pair_whitelist": ["BTC/USDC", "ETH/USDC", "SOL/USDC", "XRP/USDC", "AVAX/USDC"],
+    "pair_blacklist": []
+  },
+  "export": "trades",
+  "force_entry_enable": true,
+  "max_open_trades": 2,
+  "loglevel": "INFO",
+  "dataformat_ohlcv": "feather",
+  "dataformat_trades": "feather",
+  "new_pairs_days": 30,
+  "exporters": [
+    {
+      "name": "influx",
+      "type": "influxdb",
+      "url": "http://influxdb:8086",
+      "database": "${INFLUXDB_DB}",
+      "username": "${INFLUXDB_USER}",
+      "password": "${INFLUXDB_PASSWORD}"
+    }
+  ],
+  "pairlists": [
+    {
+      "method": "StaticPairList"
+    }
+  ],
+  "entry_pricing": {
+    "price_side": "ask",
+    "use_order_book": true,
+    "order_book_depth": 1
+  },
+  "exit_pricing": {
+    "price_side": "bid",
+    "use_order_book": true,
+    "order_book_depth": 1
+  },
+  "stoploss": -0.03,
+  "minimal_roi": {
+    "0": 0.02
+  }
+}
+

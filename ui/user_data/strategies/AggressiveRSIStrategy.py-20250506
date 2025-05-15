@@ -1,0 +1,50 @@
+from freqtrade.strategy.interface import IStrategy
+from pandas import DataFrame
+import talib.abstract as ta
+
+class AggressiveRSIStrategy(IStrategy):
+    timeframe = '5m'
+
+    minimal_roi = {"0": 0.05}
+    stoploss = -0.03
+    trailing_stop = True
+    trailing_stop_positive = 0.03
+    trailing_stop_positive_offset = 0.05
+    trailing_only_offset_is_reached = True
+
+    process_only_new_candles = True
+    startup_candle_count = 200
+
+    def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe['rsi'] = ta.RSI(dataframe, timeperiod=14)
+        dataframe['ema20'] = ta.EMA(dataframe, timeperiod=20)
+        dataframe['ema50'] = ta.EMA(dataframe, timeperiod=50)
+        dataframe['ema200'] = ta.EMA(dataframe, timeperiod=200)
+        macd = ta.MACD(dataframe, fastperiod=12, slowperiod=26, signalperiod=9)
+        dataframe['macd'] = macd['macd']
+        dataframe['macdsignal'] = macd['macdsignal']
+        dataframe['volume_mean'] = dataframe['volume'].rolling(window=10).mean()
+        dataframe['range_24h'] = dataframe['high'].rolling(window=288).max() - dataframe['low'].rolling(window=288).min()
+        dataframe['range_pct'] = dataframe['range_24h'] / dataframe['close']
+        return dataframe
+
+    def populate_buy_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe.loc[
+            (dataframe['close'] > dataframe['ema200']) &
+            (dataframe['range_pct'] > 0.015) &
+            (dataframe['rsi'] < 50) &
+            (dataframe['macd'] > dataframe['macdsignal']) &
+            (dataframe['volume'] > dataframe['volume_mean']),
+            'buy'
+        ] = 1
+        return dataframe
+
+    def populate_sell_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
+        dataframe.loc[
+            (dataframe['rsi'] > 70) |
+            (dataframe['close'] < dataframe['ema20']) |
+            (dataframe['macd'] < dataframe['macdsignal']),
+            'sell'
+        ] = 1
+        return dataframe
+

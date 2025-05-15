@@ -1,0 +1,46 @@
+{
+  "api_key": "${BINANCE_API_KEY}",
+  "api_secret": "${BINANCE_API_SECRET}",
+  "dry_run": true,
+  "timeframe": "5m",
+  "stake_currency": "${STAKE_CURRENCY}",
+  "stake_amount": ${STAKE_AMOUNT},
+  "strategy": "SimpleRSIStrategy",
+  "exchange": {
+    "name": "binance",
+    "type": "spot",
+    "pair_whitelist": ["BTC/USDT", "ETH/USDT", "SOL/USDT", "XRP/USDT"],
+    "pair_blacklist": []
+  },
+  "export": "trades",
+  "dataformat_ohlcv": "feather",
+  "dataformat_trades": "feather",
+  "new_pairs_days": 30,
+  "exporters": [
+    {
+      "name": "influx",
+      "type": "influxdb",
+      "url": "http://influxdb:8086",
+      "database": "${INFLUXDB_DB}",
+      "username": "${INFLUXDB_USER}",
+      "password": "${INFLUXDB_PASSWORD}"
+    }
+  ],
+  "pairlists": [
+    {
+      "method": "StaticPairList"
+    }
+  ],
+  "entry_pricing": {
+    "price_side": "ask",
+    "use_order_book": true,
+    "order_book_depth": 1
+  },
+  "exit_pricing": {
+    "price_side": "bid",
+    "use_order_book": true,
+    "order_book_depth": 1
+  },
+  "stoploss": -0.1
+}
+

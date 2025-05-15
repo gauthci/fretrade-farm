@@ -1,0 +1,11 @@
+{
+  "strategy": "AggressiveRSIStrategy",
+  "timerange": "20240101-20240505",
+  "epochs": 100,
+  "spaces": ["roi", "stoploss", "trailing"],
+  "datadir": "user_data/data",
+  "export": true,
+  "exportfilename": "user_data/hyperopt_results.json",
+  "config": "user_data/config.json"
+}
+

@@ -1,0 +1,26 @@
+{
+  "api_key": "${BINANCE_API_KEY}",
+  "api_secret": "${BINANCE_API_SECRET}",
+  "exchange": {
+    "name": "binance",
+    "type": "spot",
+    "pair_whitelist": [${PAIRS}],
+    "pair_blacklist": []
+  },
+  "stake_currency": "${STAKE_CURRENCY}",
+  "stake_amount": ${STAKE_AMOUNT},
+  "dry_run": true,
+  "strategy": "SimpleRSIStrategy",
+  "timeframe": "5m",
+  "exporters": [
+    {
+      "name": "influx",
+      "type": "influxdb",
+      "url": "http://influxdb:8086",
+      "database": "${INFLUXDB_DB}",
+      "username": "${INFLUXDB_USER}",
+      "password": "${INFLUXDB_PASSWORD}"
+    }
+  ]
+}
+

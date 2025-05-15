@@ -1,0 +1,47 @@
+{
+  "dry_run": true,
+  "timeframe": "5m",
+  "stake_currency": "USDC",
+  "strategy": "AggressiveRSIStrategy",
+  "exchange": {
+    "name": "binance",
+    "type": "spot",
+    "key": "1tzaphRn1SHTCmY1eKw3e1q1r1hHIKZ9SlWDAdpUTD5OmI9bby9RJ6dRZdy27JzH",
+    "secret": "SyCr4V3flKIDr4SamjwUbRdbYIG4wbRQehPuFwrgIJxnWFBZnqvCEOI7o9G7AovG",
+    "ccxt_config": {
+      "enableRateLimit": true
+    },
+    "pair_whitelist": [
+      "ACX/USDC", "SOL/USDC", "BTC/USDC", "ETH/USDC", "BNB/USDC",
+      "ADA/USDC", "XRP/USDC", "DOGE/USDC", "AVAX/USDC", "DOT/USDC",
+      "LTC/USDC", "LINK/USDC", "OP/USDC", "ARB/USDC", "INJ/USDC",
+      "APT/USDC", "SUI/USDC", "RUNE/USDC", "FET/USDC", "NEAR/USDC",
+      "SEI/USDC", "JUP/USDC", "PEPE/USDC"
+    ],
+    "pair_blacklist": [],
+    "enable_ws": true,
+    "log_responses": false,
+    "markets_refresh_interval": 60
+  },
+  "max_open_trades": 0,
+  "loglevel": "INFO",
+  "api_server": {
+    "enabled": true,
+    "listen_ip_address": "0.0.0.0",
+    "listen_port": 8080,
+    "verbosity": "info",
+    "jwt_secret_key": "super-secret-jwt-key",
+    "CORS_origins": [],
+    "username": "pcrypto1",
+    "password": "FAU1tv2+0CDB3e85"
+  },
+  "pairlists": [
+    {
+      "method": "StaticPairList"
+    }
+  ],
+  "dataformat_ohlcv": "feather",
+  "dataformat_trades": "feather",
+  "initial_state": "stopped"
+}
+

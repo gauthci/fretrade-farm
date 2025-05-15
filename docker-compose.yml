@@ -1,0 +1,81 @@
+services:
+  freqtrade-bot1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: freqtrade-customization
+    container_name: freqtrade-bot1
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./bot1/.env:/freqtrade/.env
+      - ./bot1/user_data:/freqtrade/user_data
+      - ./entrypoint.sh:/entrypoint.sh:ro
+    entrypoint: /freqtrade/user_data/entrypoint.sh
+    command: >
+      trade
+      --config /freqtrade/user_data/config.json
+      --logfile "/freqtrade/user_data/logs/freqtrade.log"
+      --db-url sqlite:////freqtrade/user_data/tradesv3.sqlite
+      --strategy AggressiveRSIStrategy
+      --dry-run
+    ports:
+      - "8081:8080"
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "200m"
+        max-file: "3"
+
+  freqtrade-bot2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: freqtrade-customization
+    container_name: freqtrade-bot2
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./bot2/.env:/freqtrade/.env
+      - ./bot2/user_data:/freqtrade/user_data
+      - ./entrypoint.sh:/entrypoint.sh:ro
+    entrypoint: /freqtrade/user_data/entrypoint.sh
+    command: >
+      trade
+      --config /freqtrade/user_data/config.json
+      --logfile "/freqtrade/user_data/logs/freqtrade.log"
+      --db-url sqlite:////freqtrade/user_data/tradesv3.sqlite
+      --strategy AggressiveRSIStrategy
+      --dry-run
+    ports:
+      - "8082:8080"
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "200m"
+        max-file: "3"
+
+  freqtrade-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: freqtrade-customization
+    container_name: freqtrade-ui
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./ui/user_data:/freqtrade/user_data
+    command: >
+      webserver      
+      --config /freqtrade/user_data/config.json
+      --logfile "/freqtrade/user_data/logs/freqtrade.log"
+    ports:
+      - "8080:8080"
+    logging:
+      driver: json-file
+      options:
+        max-size: "200m"
+        max-file: "3"
+

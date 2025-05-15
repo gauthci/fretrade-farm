@@ -1,0 +1,98 @@
+{
+  "dry_run": false,
+  "timeframe": "5m",
+  "stake_currency": "USDC",
+  "stake_amount": 20,
+  "tradable_balance_ratio": 0.99,
+  "last_stake_amount_min_ratio": 0.5,
+  "dry_run_wallet": 1000,
+  "strategy": "AggressiveRSIStrategy",
+  "exchange": {
+    "name": "binance",
+    "type": "spot",
+    "key": "${BINANCE_API_KEY}",
+    "secret": "${BINANCE_API_SECRET}",
+    "ccxt_config": {
+      "enableRateLimit": true
+    },
+    "pair_whitelist": [
+      "ACX/USDC", "SOL/USDC", "BTC/USDC", "ETH/USDC", "BNB/USDC",
+      "ADA/USDC", "XRP/USDC", "AVAX/USDC",
+      "LTC/USDC",
+      "PEPE/USDC"
+    ],
+    "pair_blacklist": [],
+    "enable_ws": true,
+    "log_responses": false,
+    "markets_refresh_interval": 60
+  },
+  "export": "trades",
+  "force_entry_enable": true,
+  "max_open_trades": 4,
+  "loglevel": "INFO",
+  "stoploss": -0.345,
+  "minimal_roi": {
+    "0": 0.202,
+    "30": 0.074,
+    "67": 0.021,
+    "181": 0
+  },
+  "trailing_stop": true,
+  "trailing_stop_positive": 0.346,
+  "trailing_stop_positive_offset": 0.418,
+  "trailing_only_offset_is_reached": false,
+  "use_exit_signal": true,
+  "exit_profit_only": false,
+  "ignore_roi_if_entry_signal": false,
+  "order_types": {
+    "entry": "limit",
+    "exit": "limit",
+    "stoploss": "market",
+    "force_exit": "market",
+    "stoploss_on_exchange": false
+  },
+  "order_time_in_force": {
+    "entry": "gtc",
+    "exit": "gtc"
+  },
+  "unfilledtimeout": {
+    "entry": 10,
+    "exit": 30,
+    "unit": "seconds",
+    "exit_timeout_count": 0
+  },
+  "pairlists": [
+    {
+      "method": "StaticPairList"
+    }
+  ],
+  "protection": [
+    {
+      "method": "CooldownPeriod",
+      "stop_duration_candles": 18
+    },
+    {
+      "method": "StoplossGuard",
+      "lookback_period_candles": 6,
+      "trade_limit": 4,
+      "stop_duration_candles": 13,
+      "only_per_pair": false
+    }
+  ],
+  "exit_pricing": {
+    "price_side": "bid",
+    "use_order_book": true,
+    "order_book_top": 1
+  },
+  "entry_pricing": {
+    "price_side": "ask",
+    "use_order_book": true,
+    "order_book_top": 1
+  },
+  "internals": {},
+  "dataformat_ohlcv": "feather",
+  "dataformat_trades": "feather",
+  "initial_state": "running"
+
+}
+

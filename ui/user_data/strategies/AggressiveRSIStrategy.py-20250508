@@ -1,0 +1,73 @@
+import numpy as np
+import pandas as pd
+import talib.abstract as ta
+
+from freqtrade.strategy import IStrategy, IntParameter, DecimalParameter, CategoricalParameter
+from freqtrade.optimize.hyperopt import IHyperOptLoss
+
+class AggressiveRSIStrategy(IStrategy):
+    # --- Strategy parameters ---
+    minimal_roi = {
+        "0": 0.222,
+        "37": 0.088,
+        "79": 0.028,
+        "131": 0
+    }
+
+    stoploss = -0.275
+    timeframe = '5m'
+
+    # --- Hyperopt parameters (best found) ---
+    #buy_rsi = IntParameter(20, 20, default=20, space='buy', optimize=False)
+    #sell_rsi = IntParameter(80, 80, default=80, space='sell', optimize=False)
+    buy_rsi = IntParameter(20, 40, default=30, space='buy', optimize=True)
+    sell_rsi = IntParameter(60, 90, default=80, space='sell', optimize=True)
+
+
+    # Protection parameters (best found)
+    stoploss_guard_lookback_period_candles = IntParameter(6, 6, default=6, space='protection', optimize=False)
+    stoploss_guard_threshold = DecimalParameter(0.03, 0.03, default=0.03, space='protection', optimize=False)
+    stoploss_guard_stop_duration_candles = IntParameter(13, 13, default=13, space='protection', optimize=False)
+
+    low_profit_pairs_lookback_period_candles = IntParameter(8, 8, default=8, space='protection', optimize=False)
+    low_profit_pairs_trade_limit = IntParameter(4, 4, default=4, space='protection', optimize=False)
+    low_profit_pairs_stop_duration_candles = IntParameter(18, 18, default=18, space='protection', optimize=False)
+    low_profit_pairs_required_profit = DecimalParameter(0.025, 0.025, default=0.025, space='protection', optimize=False)
+
+    trailing_stop = True
+    trailing_stop_positive = 0.346
+    trailing_stop_positive_offset = 0.418
+    trailing_only_offset_is_reached = False
+
+    process_only_new_candles = True
+    startup_candle_count = 50
+
+    def populate_indicators(self, dataframe: pd.DataFrame, metadata: dict) -> pd.DataFrame:
+        dataframe['rsi'] = ta.RSI(dataframe['close'], timeperiod=14)
+        return dataframe
+
+    def populate_buy_trend(self, dataframe: pd.DataFrame, metadata: dict) -> pd.DataFrame:
+        dataframe.loc[
+            (dataframe['rsi'] < self.buy_rsi.value),
+            'buy'
+        ] = 1
+        return dataframe
+
+    def populate_sell_trend(self, dataframe: pd.DataFrame, metadata: dict) -> pd.DataFrame:
+        dataframe.loc[
+            (dataframe['rsi'] > self.sell_rsi.value),
+            'sell'
+        ] = 1
+        return dataframe
+
+# Optional: Custom HyperOpt Loss function
+class SharpeHyperOptLoss(IHyperOptLoss):
+    @staticmethod
+    def loss(trades, parameters, min_date, max_date, *args, **kwargs):
+        profits = np.array([trade.pnl for trade in trades])
+        if len(profits) < 2:
+            return 0
+        returns = np.diff(profits)
+        sharpe = np.mean(returns) / (np.std(returns) + 1e-9)
+        return -sharpe
+
