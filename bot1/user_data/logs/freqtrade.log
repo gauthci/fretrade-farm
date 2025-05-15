@@ -18788,3 +18788,35 @@
 2025-05-15 13:28:39,539 - uvicorn.access - INFO - 193.252.111.99:53345 - "GET /api/v1/status HTTP/1.1" 200
 2025-05-15 13:28:39,587 - uvicorn.access - INFO - 193.252.111.99:53343 - "OPTIONS /api/v1/locks HTTP/1.1" 200
 2025-05-15 13:28:39,626 - uvicorn.access - INFO - 193.252.111.99:53345 - "GET /api/v1/locks HTTP/1.1" 200
+2025-05-15 13:28:56,020 - freqtrade.worker - INFO - Bot heartbeat. PID=12, version='2025.4', state='RUNNING'
+2025-05-15 13:29:39,493 - uvicorn.access - INFO - 193.252.111.99:53349 - "GET /api/v1/status HTTP/1.1" 200
+2025-05-15 13:29:39,511 - uvicorn.access - INFO - 193.252.111.99:54232 - "GET /api/v1/ping HTTP/1.1" 200
+2025-05-15 13:29:39,542 - uvicorn.access - INFO - 193.252.111.99:53349 - "GET /api/v1/locks HTTP/1.1" 200
+2025-05-15 13:29:56,025 - freqtrade.worker - INFO - Bot heartbeat. PID=12, version='2025.4', state='RUNNING'
+2025-05-15 13:30:01,979 - uvicorn.access - INFO - 193.252.111.99:54236 - "POST /api/v1/pair_candles HTTP/1.1" 200
+2025-05-15 13:30:39,513 - uvicorn.access - INFO - 193.252.111.99:53416 - "GET /api/v1/ping HTTP/1.1" 200
+2025-05-15 13:30:39,518 - uvicorn.access - INFO - 193.252.111.99:53414 - "GET /api/v1/status HTTP/1.1" 200
+2025-05-15 13:30:39,578 - uvicorn.access - INFO - 193.252.111.99:53414 - "GET /api/v1/locks HTTP/1.1" 200
+2025-05-15 13:31:01,003 - freqtrade.worker - INFO - Bot heartbeat. PID=12, version='2025.4', state='RUNNING'
+2025-05-15 13:31:30,180 - uvicorn.access - INFO - 139.162.186.99:46984 - "GET / HTTP/1.0" 200
+2025-05-15 13:31:30,246 - uvicorn.access - INFO - 139.162.186.99:36550 - "GET /nice%20ports%2C/Trinity.txt.bak HTTP/1.0" 200
+2025-05-15 13:31:35,352 - uvicorn.access - INFO - 139.162.186.99:36604 - "OPTIONS / HTTP/1.0" 405
+2025-05-15 13:31:39,526 - uvicorn.access - INFO - 193.252.111.99:53436 - "GET /api/v1/status HTTP/1.1" 200
+2025-05-15 13:31:39,534 - uvicorn.access - INFO - 193.252.111.99:53435 - "GET /api/v1/ping HTTP/1.1" 200
+2025-05-15 13:31:39,581 - uvicorn.access - INFO - 193.252.111.99:53435 - "GET /api/v1/locks HTTP/1.1" 200
+2025-05-15 13:31:58,137 - uvicorn.access - INFO - 139.162.186.99:46462 - "GET / HTTP/1.1" 200
+2025-05-15 13:31:58,443 - uvicorn.access - INFO - 139.162.186.99:46484 - "GET /favicon.ico HTTP/1.1" 200
+2025-05-15 13:32:01,009 - freqtrade.worker - INFO - Bot heartbeat. PID=12, version='2025.4', state='RUNNING'
+2025-05-15 13:32:08,226 - uvicorn.access - INFO - 139.162.186.99:50850 - "GET / HTTP/1.1" 200
+2025-05-15 13:32:39,516 - uvicorn.access - INFO - 193.252.111.99:59963 - "GET /api/v1/ping HTTP/1.1" 200
+2025-05-15 13:32:39,523 - uvicorn.access - INFO - 193.252.111.99:59961 - "GET /api/v1/status HTTP/1.1" 200
+2025-05-15 13:32:39,583 - uvicorn.access - INFO - 193.252.111.99:59961 - "GET /api/v1/locks HTTP/1.1" 200
+2025-05-15 13:33:01,014 - freqtrade.worker - INFO - Bot heartbeat. PID=12, version='2025.4', state='RUNNING'
+2025-05-15 13:33:39,512 - uvicorn.access - INFO - 193.252.111.99:53530 - "OPTIONS /api/v1/ping HTTP/1.1" 200
+2025-05-15 13:33:39,518 - uvicorn.access - INFO - 193.252.111.99:53531 - "GET /api/v1/status HTTP/1.1" 401
+2025-05-15 13:33:39,553 - uvicorn.access - INFO - 193.252.111.99:53531 - "GET /api/v1/ping HTTP/1.1" 200
+2025-05-15 13:33:39,557 - uvicorn.access - INFO - 193.252.111.99:53530 - "OPTIONS /api/v1/token/refresh HTTP/1.1" 200
+2025-05-15 13:33:39,588 - uvicorn.access - INFO - 193.252.111.99:53530 - "POST /api/v1/token/refresh HTTP/1.1" 200
+2025-05-15 13:33:39,632 - uvicorn.access - INFO - 193.252.111.99:53531 - "GET /api/v1/status HTTP/1.1" 200
+2025-05-15 13:33:39,682 - uvicorn.access - INFO - 193.252.111.99:53531 - "GET /api/v1/locks HTTP/1.1" 200
+2025-05-15 13:34:01,019 - freqtrade.worker - INFO - Bot heartbeat. PID=12, version='2025.4', state='RUNNING'
