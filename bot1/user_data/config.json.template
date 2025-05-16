@@ -2,8 +2,11 @@
   "dry_run": false,
   "timeframe": "5m",
   "stake_currency": "USDC",
-  "stake_amount": 25,
-  "strategy": "AggressiveRSIStrategy",
+  "stake_amount": 70,
+  "tradable_balance_ratio": 0.99,
+  "last_stake_amount_min_ratio": 0.5,
+  "dry_run_wallet": 1000,
+  "strategy": "TrendBBRSIStrategy",
   "exchange": {
     "name": "binance",
     "type": "spot",
@@ -13,18 +16,16 @@
       "enableRateLimit": true
   },
   "pair_whitelist": [
-      "ACT/USDC", "ADA/USDC", "AIXBT/USDC", "ALGO/USDC",
-      "ATOM/USDC", "AVAX/USDC",
-      "BNB/USDC", "BTC/USDC",
-      "EPIC/USDC", "ETH/USDC",
+      "ACT/USDC",
+      "AVAX/USDC",
+      "EPIC/USDC",
       "FET/USDC",
-      "SHELL/USDC", "SHIB/USDC",
-      "THETA/USDC",
-      "XLM/USDC", "XRP/USDC", "XTZ/USDC"
+      "XRP/USDC"
   ],
-  "pair_blacklist": [
-      "ARB/USDC", "INJ/USDC", "APT/USDC", "ORDI/USDC", "RUNE/USDC"
-  ],
+  "pair_blacklist": [],
+    "enable_ws": true,
+    "log_responses": false,
+    "markets_refresh_interval": 60
   },
   "export": "trades",
   "force_entry_enable": true,
@@ -44,23 +45,21 @@
     "password": "FAU1tv2+0CDB3e85"
   },
   "loglevel": "INFO",
-  "dataformat_ohlcv": "feather",
-  "dataformat_trades": "feather",
-  "new_pairs_days": 30,
-  "initial_state": "running",
-  "pairlists": [
-    {
-      "method": "StaticPairList"
-    }
-  ],
-  "entry_pricing": {
-    "price_side": "ask",
-    "use_order_book": false
+  "stoploss": -0.253,
+  "minimal_roi": {
+     "0": 0.229,
+     "18": 0.046,
+     "30": 0.016,
+     "46": 0
   },
-  "exit_pricing": {
-    "price_side": "bid",
-    "use_order_book": false
-  },
+ 
+  "trailing_stop": true,
+  "trailing_stop_positive": 0.03,
+  "trailing_stop_positive_offset": 0.05,
+  "trailing_only_offset_is_reached": true,
+  "use_exit_signal": true,
+  "exit_profit_only": false,
+  "ignore_roi_if_entry_signal": false,
   "order_types": {
     "entry": "limit",
     "exit": "limit",
@@ -72,20 +71,43 @@
     "entry": "gtc",
     "exit": "gtc"
   },
-  "stoploss": -0.05,
-  "minimal_roi": {
-    "0": 0.228,
-    "27": 0.076,
-    "56": 0.031,
-    "166": 0
-  },
-  "use_exit_signal": true,
-  "exit_profit_only": false,
-  "ignore_roi_if_entry_signal": false,
   "unfilledtimeout": {
     "entry": 10,
     "exit": 30,
-    "unit": "seconds"
-  }
+    "unit": "seconds",
+  },
+  "pairlists": [
+    {
+      "method": "StaticPairList"
+    }
+  ],
+  "protection": [
+    {
+      "method": "CooldownPeriod",
+      "stop_duration_candles": 18
+    },
+    {
+      "method": "StoplossGuard",
+      "lookback_period_candles": 6,
+      "trade_limit": 4,
+      "stop_duration_candles": 13,
+      "only_per_pair": false
+    }
+  ],
+  "exit_pricing": {
+    "price_side": "bid",
+    "use_order_book": true,
+    "order_book_top": 1
+  },
+  "entry_pricing": {
+    "price_side": "ask",
+    "use_order_book": true,
+    "order_book_top": 1
+  },
+  "internals": {},
+  "dataformat_ohlcv": "feather",
+  "dataformat_trades": "feather",
+  "initial_state": "running"
+
 }
 
